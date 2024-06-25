@@ -1,31 +1,30 @@
-Feature: Google
+Feature: Account statement
 
   Background:
-    Given url "http://www.google.co.uk" is launched
+    Given Account exists for Acc No. "12345678" with Name "Bob Smith"
+    And deposits are made
+      | INIT | 200 |
+      | DEP1 | 100 |
+      | DEP2 | 450 |
+      | DEP3 | 50  |
+    And withdrawls are made
+      | CHQ001 | 675.55 |
+    When statement is produced
+
 
   @regression
-  Scenario: Mission statement can be seen
-    When About page is shown
-    Then page displays "Our mission is to organise the world’s information and make it universally accessible and useful"
-
-	@regression
-  Scenario: Use "I'm Feeling Lucky" for a search term
-    Given the user is on the Google search page
-    When the user searches for "cat" using I'm Feeling Lucky
-    Then the user should be directly taken to the top result page
+  Scenario: Statement includes account details
+    Then statement includes "Name: Bob Smith"
+    * statement includes "Account: 12345678"
 
   @regression
-  Scenario: Search for BBC News
-    When searching for "BBC News"
-    Then results contain "Home - BBC News"
-    #And result stats are displayed //results not appearing on current google version
-    #And number of "results" is more than 1 
-    #And number of "seconds" is more than 0
+  Scenario: Balance is calculated on the statement
+    Then statement includes "Balance: 124.45"
 
-#	@edge
-  #Scenario: Search for non-existent terms //No results message does not appear through automation
-    #Given the user is on the Google search page
-    #When the user searches for "$£%$£Qedfxe"
-    #Then no relevant search results should be displayed
-    #And a message indicating no results found should be shown
-    
+  @regression
+  Scenario: Statement includes transaction details
+    Then statement includes "INIT"
+    * statement includes "DEP1"
+    * statement includes "DEP2"
+    * statement includes "DEP3"
+    * statement includes "CHQ001"
