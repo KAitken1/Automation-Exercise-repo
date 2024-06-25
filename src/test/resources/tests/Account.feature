@@ -28,3 +28,24 @@ Feature: Account statement
     * statement includes "DEP2"
     * statement includes "DEP3"
     * statement includes "CHQ001"
+    
+  @edge
+	Scenario: Account with empty name
+  	Given Account exists for Acc No. "12345679" with Name ""
+ 		Then an error should occur with message "Account name cannot be empty"
+	
+	@edge
+  Scenario: Deposit zero amount
+    Given Account exists for Acc No. "12345680" with Name "Alice Johnson"
+    And deposits are made
+      | INIT | 0 |
+    Then an error should occur with message "Deposit amount must be positive"
+
+  @edge
+  Scenario: Deposit negative amount
+    Given Account exists for Acc No. "12345681" with Name "Alice Johnson"
+    And deposits are made
+      | INIT | -100 |
+    Then an error should occur with message "Deposit amount must be positive"
+
+    
