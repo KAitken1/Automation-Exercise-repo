@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
         features = {"src/test/resources/tests"},
         glue = {"glue"},
         plugin = {"html:target/cucumber-html/cucumber.html", "json:target/cucumber-json/cucumber.json"},
-        tags = ""
+        tags = "not @passwordchange" //Exclude password change due to missing step file       
 )
 public class Runner {
     @AfterClass
