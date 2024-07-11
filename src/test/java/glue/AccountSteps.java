@@ -45,7 +45,7 @@ public class AccountSteps {
     public void depositsAreMade(Map<String, Double> deposits) {
         for (Map.Entry<String, Double> deposit : deposits.entrySet()) {
             try {
-                logger.info("Depositing amount: {} on date: {}", deposit.getValue(), deposit.getKey());
+                logger.info("Depositing amount: {} with transactionId: {}", deposit.getValue(), deposit.getKey());
                 account.deposit(deposit.getKey(), deposit.getValue());
                 logger.debug("Deposit successful: {}", deposit);
             } catch (IllegalArgumentException e) {
@@ -60,6 +60,7 @@ public class AccountSteps {
     public void withdrawalsAreMade(Map<String, Double> withdrawals) {
         for (Map.Entry<String, Double> withdrawal : withdrawals.entrySet()) {
             try {
+                logger.info("Withdrawing amount: {} with transactionId: {}", withdrawal.getValue(), withdrawal.getKey());
                 account.withdraw(withdrawal.getKey(), withdrawal.getValue());
                 logger.info("Withdrawal successful: {}", withdrawal);
             } catch (IllegalArgumentException e) {
