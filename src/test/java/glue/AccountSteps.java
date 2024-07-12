@@ -2,6 +2,7 @@ package glue;
 
 import account.Account;
 import account.Statement;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -41,7 +42,7 @@ public class AccountSteps {
     }
 
     //Step to deposit amounts into the account
-    @Given("deposits are made")
+    @And("deposits are made")
     public void depositsAreMade(Map<String, Double> deposits) {
         for (Map.Entry<String, Double> deposit : deposits.entrySet()) {
             try {
@@ -56,7 +57,7 @@ public class AccountSteps {
     }
 
     //Step to withdraw amounts from the account
-    @Given("withdrawals are made")
+    @And("withdrawals are made")
     public void withdrawalsAreMade(Map<String, Double> withdrawals) {
         for (Map.Entry<String, Double> withdrawal : withdrawals.entrySet()) {
             try {
